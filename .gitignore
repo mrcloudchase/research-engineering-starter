@@ -1,0 +1,104 @@
+# Research Engineering Starter - .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Data files (add specific patterns as needed)
+*.csv
+*.json
+*.pkl
+*.h5
+*.hdf5
+data/raw/
+data/processed/
+!data/README.md
+
+# Experiment outputs
+experiments/outputs/
+experiments/logs/
+experiments/models/
+mlruns/
+wandb/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Research specific
+*.pdf
+*.docx
+*.pptx
+papers/
+references/
+!papers/README.md
+!references/README.md
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Model files (large files)
+*.model
+*.weights
+*.checkpoint
+checkpoints/
+
+# Results and plots
+results/*.png
+results/*.jpg
+results/*.svg
+plots/
+figures/
+!results/README.md
+!plots/README.md
+!figures/README.md
