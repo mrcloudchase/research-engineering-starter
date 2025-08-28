@@ -49,11 +49,44 @@ Your literature review should address:
    - What alternative approaches exist?
    - How does this fit into the broader field?
 
-### Resources
+### Learning Resources
 
-- [Literature Review Guide](https://libguides.mit.edu/c.php?g=175963&p=1158594)
-- [Research Question Formation](https://writingcenter.unc.edu/tips-and-tools/research-questions/)
-- [Citation Management with Zotero](https://www.zotero.org/support/quick_start_guide)
+#### Research Fundamentals (Week 1-2)
+- **Scientific Method**: [Khan Academy: Scientific Method](https://www.khanacademy.org/science/biology/intro-to-biology/science-of-biology/a/the-science-of-biology)
+- **Literature Review Techniques**: [MIT Libraries: How to Conduct a Literature Review](https://libguides.mit.edu/c.php?g=175963&p=1158594)
+- **Research Ethics**: [NIH: Introduction to Research Ethics](https://www.niehs.nih.gov/research/resources/bioethics/whatis/)
+- **Reproducible Research**: [The Turing Way: Guide to Reproducible Research](https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html)
+
+#### Research Tools
+- **Citation Management**: [Zotero Quick Start Guide](https://www.zotero.org/support/quick_start_guide)
+- **Research Question Formation**: [UNC Writing Center: Research Questions](https://writingcenter.unc.edu/tips-and-tools/research-questions/)
+- **Academic Search**: [Google Scholar](https://scholar.google.com/) | [ArXiv](https://arxiv.org/) | [PLOS ONE](https://journals.plos.org/plosone/)
+
+### Perceptron Example Resources
+
+If following the Perceptron example from the learning path:
+
+#### Core Paper
+- **Original Paper**: [Rosenblatt's "The Perceptron" (1958)](https://psycnet.apa.org/record/1959-09865-001)
+- **Historical Context**: [History of Neural Networks](https://cs.stanford.edu/people/eroberts/courses/soco/projects/neural-networks/History/history1.html)
+- **Theoretical Foundation**: [3Blue1Brown: Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
+- **Academic Context**: [MIT: Introduction to Neural Networks](https://ocw.mit.edu/courses/brain-and-cognitive-sciences/9-641j-introduction-to-neural-networks-spring-2005/)
+
+#### Key Questions to Address
+1. **Problem Context**: What problem was Rosenblatt trying to solve?
+2. **Historical Significance**: Why was this breakthrough important?
+3. **Theoretical Foundation**: How does the perceptron learn?
+4. **Limitations**: What problems couldn't it solve? (Hint: XOR problem)
+
+### Just-in-Time Learning Checkpoints
+
+**Week 1**: Focus on understanding the scientific method and research ethics
+- **If you need**: Basic research methodology → [Research Methods Fundamentals](https://www.coursera.org/learn/research-methods)
+- **If you need**: Academic writing skills → [Academic Writing Guide](https://writingcenter.unc.edu/tips-and-tools/)
+
+**Week 2**: Dive into your chosen paper's technical details
+- **If you need**: Domain-specific background → Search for introductory courses in your field
+- **If you need**: Mathematical concepts → [Khan Academy](https://www.khanacademy.org/) has courses for all levels
 
 ### Milestone
 
