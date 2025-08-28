@@ -1,23 +1,24 @@
 # Resources
 
-Shared resources and references for your research engineering journey.
+This folder contains shared resources and references for your research engineering journey.
 
-## 📚 What Goes Here
+## 📚 Recommended Structure
 
-- **Papers and Literature** - Research papers, references, and citations
-- **Datasets** - Data sources and datasets for your research
-- **Tools and Scripts** - Utility scripts and helper functions
-- **Templates** - Document templates and formats
-- **Community Resources** - Shared knowledge and collaboration materials
+- `papers/` - Research papers and literature
+- `datasets/` - Shared datasets and data sources
+- `tools/` - Utility scripts and helper functions
+- `templates/` - Document templates and formats
+- `references/` - Bibliography and citation management
 
 ## 🔗 Key Resources
 
 ### Learning Resources
 All learning resources are linked in the [Research Engineering Learning Path](https://averagejoeslab.com/docs/intro):
-- Phase-specific tutorials and guides
-- Tool documentation and best practices
-- Research methodology resources
-- Community support and mentorship
+
+- **Phase 1**: Research methodology and literature review guides
+- **Phase 2**: Programming tutorials and tool documentation
+- **Phase 3**: Experimental design and statistical analysis
+- **Phase 4**: Scientific writing and community engagement
 
 ### Research Tools
 - [Zotero](https://www.zotero.org/) - Reference management
@@ -25,10 +26,25 @@ All learning resources are linked in the [Research Engineering Learning Path](ht
 - [Git](https://git-scm.com/) - Version control
 - [MLflow](https://mlflow.org/) - Experiment tracking
 
+### Data Sources
+- [UCI ML Repository](https://archive.ics.uci.edu/ml/index.php) - Machine learning datasets
+- [Kaggle Datasets](https://www.kaggle.com/datasets) - Community datasets
+- [Google Dataset Search](https://datasetsearch.research.google.com/) - Dataset discovery
+- [Papers with Code](https://paperswithcode.com/) - Research papers with implementations
+
 ### Community
 - [Average Joes Lab Discord](https://discord.gg/averagejoeslab) - Community support
-- [Research Papers](https://averagejoeslab.com/internal-papers) - Community research
 - [GitHub Discussions](https://github.com/mrcloudchase/averagejoeslab/discussions) - Technical discussions
+- [Research Papers](https://averagejoeslab.com/internal-papers) - Community research
+
+## 📖 Templates
+
+This folder can contain templates for:
+- Literature review format
+- Experiment log template
+- Research proposal structure
+- Paper submission guidelines
+- Presentation formats
 
 ## 🤝 Contributing
 
