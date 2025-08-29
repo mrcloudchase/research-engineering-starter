@@ -33,7 +33,7 @@ All learning resources are linked in the [Research Engineering Learning Path](ht
 - [Papers with Code](https://paperswithcode.com/) - Research papers with implementations
 
 ### Community
-- [Average Joes Lab Discord](https://discord.gg/averagejoeslab) - Community support
+- [Average Joes Lab Discord](https://discord.gg/7gzZMAPuGr) - Community support
 - [GitHub Discussions](https://github.com/mrcloudchase/averagejoeslab/discussions) - Technical discussions
 - [Research Papers](https://averagejoeslab.com/internal-papers) - Community research
 

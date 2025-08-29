@@ -77,7 +77,7 @@ This template follows research engineering best practices:
 
 ## 🤝 Community
 
-- **Join the [Average Joes Lab Discord](https://discord.gg/averagejoeslab)** for support and collaboration
+- **Join the [Average Joes Lab Discord](https://discord.gg/7gzZMAPuGr)** for support and collaboration
 - **Share your progress** using the `#research-engineering-path` channel
 - **Find mentors** and collaborate with fellow researchers
 - **Contribute back** by helping newcomers on their journey
