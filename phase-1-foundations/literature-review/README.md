@@ -7,47 +7,41 @@ This folder contains your literature review work for your chosen research paper.
 ### Getting Started
 
 1. **Choose your foundational paper** using the [selection criteria](https://averagejoeslab.com/docs/intro#how-to-choose-your-starting-paper)
-2. **Document your paper choice** in `paper-selection.md`
-3. **Conduct your literature review** following the structure below
+2. **Use the comprehensive template** in `literature-review-template.md`
+3. **Create your literature review** as `[paper-name]-literature-review.md`
+4. **Follow the example** in `perceptron-literature-review.md` for guidance
 
-### Recommended Structure
+### File Structure
 
-Create the following files in this directory:
+**Template and Example Files:**
+- `literature-review-template.md` - Comprehensive template for any research field
+- `perceptron-literature-review.md` - Complete example using the Perceptron paper
+- `README.md` - This guide
 
-- `paper-selection.md` - Document why you chose your paper
-- `literature-review.md` - Your comprehensive literature review
-- `historical-context.md` - Historical background and significance
-- `key-concepts.md` - Important concepts and terminology
-- `references.md` - All sources and citations
+**Your Work:**
+- `[your-paper-name]-literature-review.md` - Your completed literature review
 
-### Literature Review Template
+### Using the Literature Review Template
 
-Your literature review should address:
+The `literature-review-template.md` provides a comprehensive 10-section structure:
 
-1. **Paper Overview**
-   - Title, authors, publication year
-   - Main research question or problem
-   - Key contributions and findings
+1. **Paper Selection** - Document your choice and rationale
+2. **Paper Overview** - Basic information and key contributions
+3. **Historical Context** - Timeline, prior work, and contemporary landscape
+4. **Key Concepts** - Core theoretical concepts and methodological innovations
+5. **Technical Analysis** - Detailed breakdown of methods and algorithms
+6. **Significance and Impact** - Reception, influence, and field transformation
+7. **Limitations and Critique** - Known problems and subsequent critiques
+8. **Modern Connections** - Evolution of ideas and current applications
+9. **Research Questions for Phase 3** - Your experimental design preview
+10. **References and Sources** - Comprehensive annotated bibliography
 
-2. **Historical Context**
-   - What problem was the research trying to solve?
-   - What was the state of the field before this work?
-   - Why was this research important at the time?
-
-3. **Theoretical Foundation**
-   - What theories or principles does the work build on?
-   - How does the methodology work?
-   - What assumptions are made?
-
-4. **Significance and Impact**
-   - Why was this breakthrough important?
-   - How did it influence later research?
-   - What limitations or problems did it reveal?
-
-5. **Related Work**
-   - What other papers build on this work?
-   - What alternative approaches exist?
-   - How does this fit into the broader field?
+**Template Features:**
+- Field-agnostic design (works for any research domain)
+- Detailed guidance and prompts for each section
+- Built-in progress tracking with checkboxes
+- Research methodology tips and quality checklist
+- Works for both historical and recent papers
 
 ### Learning Resources
 
@@ -62,21 +56,28 @@ Your literature review should address:
 - **Research Question Formation**: [UNC Writing Center: Research Questions](https://writingcenter.unc.edu/tips-and-tools/research-questions/)
 - **Academic Search**: [Google Scholar](https://scholar.google.com/) | [ArXiv](https://arxiv.org/) | [PLOS ONE](https://journals.plos.org/plosone/)
 
-### Perceptron Example Resources
+### Example: Perceptron Literature Review
 
-If following the Perceptron example from the learning path:
+The `perceptron-literature-review.md` file provides a complete example of the template in action:
 
-#### Core Paper
-- **Original Paper**: [Rosenblatt's "The Perceptron" (1958)](https://psycnet.apa.org/record/1959-09865-001)
-- **Historical Context**: [History of Neural Networks](https://cs.stanford.edu/people/eroberts/courses/soco/projects/neural-networks/History/history1.html)
-- **Theoretical Foundation**: [3Blue1Brown: Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
-- **Academic Context**: [MIT: Introduction to Neural Networks](https://ocw.mit.edu/courses/brain-and-cognitive-sciences/9-641j-introduction-to-neural-networks-spring-2005/)
+**What it demonstrates:**
+- How to conduct systematic literature review using the template
+- Comprehensive analysis from paper selection through research questions
+- Integration of historical context, technical analysis, and modern connections
+- Proper citation and bibliography formatting
+- Research question formulation for Phase 3 experimentation
 
-#### Key Questions to Address
-1. **Problem Context**: What problem was Rosenblatt trying to solve?
-2. **Historical Significance**: Why was this breakthrough important?
-3. **Theoretical Foundation**: How does the perceptron learn?
-4. **Limitations**: What problems couldn't it solve? (Hint: XOR problem)
+**Key insights from the example:**
+- Shows the perceptron's role in AI history (breakthrough → critique → renaissance)
+- Demonstrates how to analyze both capabilities and limitations
+- Connects historical work to modern deep learning
+- Illustrates systematic experimental design planning
+
+**Use it as a guide for:**
+- Understanding the depth of analysis expected
+- Seeing how different sections connect and build on each other
+- Learning proper academic research methodology
+- Preparing for implementation and experimentation phases
 
 ### Just-in-Time Learning Checkpoints
 
