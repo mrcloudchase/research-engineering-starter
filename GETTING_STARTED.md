@@ -14,7 +14,7 @@ Welcome to your Research Engineering journey! This guide will walk you through y
 - [ ] **Read this file** (GETTING_STARTED.md) completely
 - [ ] **Review the main README.md** for repository structure
 - [ ] **Check `paper-recommendations.md`** for paper ideas
-- [ ] **Bookmark the main guide**: [Average Joes Lab Learning Path](https://averagejoeslab.com/docs/intro)
+- [ ] **Bookmark the main guide**: [Average Joes Lab Learning Path](https://averagejoeslab.com/docs/research-engineering)
 
 ### Minutes 20-40: Choose Your Paper
 - [ ] **Option A**: Browse `paper-recommendations.md` and pick one that interests you
@@ -58,7 +58,7 @@ CELEBRATION! 🎉
 
 | I want to... | Go to... |
 |-------------|----------|
-| See the big picture | [Average Joes Lab Learning Path](https://averagejoeslab.com/docs/intro) |
+| See the big picture | [Average Joes Lab Learning Path](https://averagejoeslab.com/docs/research-engineering) |
 | Choose a paper | `paper-recommendations.md` |
 | Start my literature review | `phase-1-foundations/literature-review/literature-review-template.md` |
 | See a complete example | `phase-1-foundations/literature-review/perceptron-literature-review.md` |

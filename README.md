@@ -1,6 +1,6 @@
 # Research Engineering Starter Template
 
-A field-agnostic template repository to follow the [Average Joes Lab Research Engineering Learning Path](https://averagejoeslab.com/docs/intro).
+A field-agnostic template repository to follow the [Average Joes Lab Research Engineering Learning Path](https://averagejoeslab.com/docs/research-engineering).
 
 ## 📌 START HERE
 **New to this repository?** → **[Read the Getting Started Guide](GETTING_STARTED.md)** for your first hour walkthrough!  
@@ -12,9 +12,9 @@ A field-agnostic template repository to follow the [Average Joes Lab Research En
 2. **Clone your fork** locally: `git clone https://github.com/YOUR_USERNAME/research-engineering-starter.git`
 3. **Navigate to the repository**: `cd research-engineering-starter`
 4. **Start here**: Open `paper-recommendations.md` to choose a paper (or use your own)
-5. **Begin Phase 1**: Navigate to `phase-1-foundations/literature-review/README.md`
-6. **Use the templates**: Start with `literature-review-template.md` (see `perceptron-literature-review.md` for a complete example)
-7. **Follow the 16-week journey** using the phase folders in order
+5. **Begin Step 1**: Navigate to `step-1-curiosity/README.md` to frame your research question
+6. **Follow the 10-step process**: Work through each step folder in order
+7. **Use the templates**: Each step has worksheets and perceptron examples
 
 ## 📁 Repository Structure
 
@@ -22,33 +22,48 @@ A field-agnostic template repository to follow the [Average Joes Lab Research En
 research-engineering-starter/
 ├── README.md                          # This file - START HERE
 ├── paper-recommendations.md          # Curated paper list by field
-├── phase-1-foundations/               # Weeks 1-4: Research methodology
-│   ├── literature-review/            # Weeks 1-2: Literature review
-│   │   ├── README.md                 # Getting started guide
-│   │   ├── literature-review-template.md  # Your template
-│   │   └── perceptron-literature-review.md # Complete example
-│   └── research-setup/               # Weeks 3-4: Environment setup
-├── phase-2-technical-skills/         # Weeks 5-8: Implementation
-│   ├── implementation/               # Weeks 5-6: Code implementation
-│   └── experiments/                  # Weeks 7-8: Experiment tracking
-├── phase-3-research-practice/        # Weeks 9-12: Original research
-│   ├── hypothesis-design/           # Weeks 9-10: Research design
-│   ├── experiments/                 # Weeks 11-12: Experimentation
-│   └── analysis/                    # Week 12: Results analysis
-├── phase-4-community-contribution/   # Weeks 13-16: Sharing
-│   ├── documentation/               # Weeks 13-14: Documentation
-│   ├── presentations/               # Week 15: Presentations
-│   └── community/                   # Week 16: Mentoring
-├── resources/                        # Shared resources
+├── step-1-curiosity/                 # Problem framing and research questions
+├── step-2-literature-review/         # Map existing knowledge
+├── step-3-hypothesis/                # Testable predictions
+├── step-4-methodology/               # Research blueprint
+├── step-5-experimentation/           # Implementation and testing
+├── step-6-analysis/                  # Results interpretation
+├── step-7-iteration/                 # Refinement and improvement
+├── step-8-communication/             # Writing and documentation
+├── step-9-peer-review/               # Community feedback
+├── step-10-next-questions/           # Future research directions
+├── resources/                        # Shared resources and tools
 └── .gitignore                       # Git ignore file
 ```
 
-## 🎯 How to Use This Template - Your 16-Week Journey
+### 🔄 How Steps Map to Traditional Phases
 
-### 🆕 First Steps (Before Week 1)
+| Research Steps | Traditional Phase | Timeline |
+|---------------|-------------------|----------|
+| Steps 1-2 | Phase 1: Foundations | Weeks 1-4 |
+| Steps 3-5 | Phase 2: Technical Skills | Weeks 5-8 |
+| Steps 6-7 | Phase 3: Research Practice | Weeks 9-12 |
+| Steps 8-10 | Phase 4: Community | Weeks 13-16 |
+
+## 🎯 How to Use This Template - Following the 10-Step Research Process
+
+This repository is organized to support the 10-step research methodology outlined in the [Average Joes Lab Learning Path](https://averagejoeslab.com/docs/research-engineering):
+
+1. **Curiosity & Problem Framing** → `step-1-curiosity/`
+2. **Literature Review** → `step-2-literature-review/`
+3. **Hypothesis & Goal Setting** → `step-3-hypothesis/`
+4. **Methodology Design** → `step-4-methodology/`
+5. **Experimentation** → `step-5-experimentation/`
+6. **Analysis & Interpretation** → `step-6-analysis/`
+7. **Iteration** → `step-7-iteration/`
+8. **Writing & Communication** → `step-8-communication/`
+9. **Peer Review & Feedback** → `step-9-peer-review/`
+10. **Next Questions** → `step-10-next-questions/`
+
+### 🆕 First Steps (Before Step 1)
 1. **Read this README completely** to understand the structure
 2. **Review `paper-recommendations.md`** for paper selection guidance
-3. **Read the main learning path** at [Average Joes Lab](https://averagejoeslab.com/docs/intro)
+3. **Read the main learning path** at [Average Joes Lab](https://averagejoeslab.com/docs/research-engineering)
 4. **Choose your research paper** - either from our recommendations or your own choice
 5. **Set up your development environment** (Python, Git, text editor)
 
@@ -128,7 +143,7 @@ This template follows research engineering best practices:
 
 ## 📚 Learning Resources
 
-All the resources you need are linked in the [Research Engineering Learning Path](https://averagejoeslab.com/docs/intro), including:
+All the resources you need are linked in the [Research Engineering Learning Path](https://averagejoeslab.com/docs/research-engineering), including:
 
 - Free tutorials for every tool and concept
 - Step-by-step guides for each phase
@@ -153,7 +168,7 @@ All the resources you need are linked in the [Research Engineering Learning Path
 - ❌ Expensive equipment or software
 - ❌ Institutional affiliation
 
-**Field-Specific Variations**: Prerequisites vary by field, but you can learn as you go. See the [complete prerequisites guide](https://averagejoeslab.com/docs/intro#prerequisites---start-where-you-are) for details on math requirements by field and the "Just-in-Time Learning" strategy.
+**Field-Specific Variations**: Prerequisites vary by field, but you can learn as you go. See the [complete prerequisites guide](https://averagejoeslab.com/docs/research-engineering) for details on math requirements by field and the "Just-in-Time Learning" strategy.
 
 ## 🌟 Navigation Guide
 
@@ -172,7 +187,7 @@ All the resources you need are linked in the [Research Engineering Learning Path
 
 ### Essential Resources:
 - **Paper Selection**: `paper-recommendations.md` (in this repo)
-- **Main Guide**: [Average Joes Lab Learning Path](https://averagejoeslab.com/docs/intro)
+- **Main Guide**: [Average Joes Lab Learning Path](https://averagejoeslab.com/docs/research-engineering)
 - **Community**: [Discord Server](https://discord.gg/7gzZMAPuGr)
 - **Example**: Complete perceptron example throughout the repository
 

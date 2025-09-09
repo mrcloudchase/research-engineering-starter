@@ -111,7 +111,7 @@ Don't learn everything upfront. Learn what you need when you need it:
 
 ## 🔗 Quick Links
 
-- **Main Guide**: [averagejoeslab.com/docs/intro](https://averagejoeslab.com/docs/intro)
+- **Main Guide**: [averagejoeslab.com/docs/research-engineering](https://averagejoeslab.com/docs/research-engineering)
 - **Discord**: [discord.gg/7gzZMAPuGr](https://discord.gg/7gzZMAPuGr)
 - **Repository**: [github.com/mrcloudchase/research-engineering-starter](https://github.com/mrcloudchase/research-engineering-starter)
 
