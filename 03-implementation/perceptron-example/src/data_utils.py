@@ -1,203 +1,215 @@
 """
-Data Utilities for Logic Gate Experiments
+Data utilities for perceptron research.
 
-Generate data for testing perceptron capabilities on logic gates,
-particularly focusing on the XOR problem that reveals fundamental limitations.
+Provides functions to generate logic gate datasets and visualize decision boundaries.
 """
 
 import numpy as np
-from typing import Tuple, Dict, Optional
 import matplotlib.pyplot as plt
+from typing import Tuple, Optional, Any
+import seaborn as sns
 
 
-def generate_logic_gate_data(gate: str = 'XOR') -> Tuple[np.ndarray, np.ndarray]:
+def generate_logic_gate_data(gate_type: str) -> Tuple[np.ndarray, np.ndarray]:
     """
-    Generate input-output pairs for logic gates.
+    Generate data for logic gate functions.
     
     Args:
-        gate: Type of logic gate ('AND', 'OR', 'XOR', 'NAND', 'NOR', 'XNOR')
+        gate_type: Type of gate ('AND', 'OR', 'XOR', 'NAND', 'NOR')
         
     Returns:
-        X: Input patterns (4, 2)
-        y: Output labels (4,)
+        Tuple of (inputs, outputs) for the specified gate
     """
-    # All possible 2-bit inputs
-    X = np.array([
-        [0, 0],
-        [0, 1],
-        [1, 0],
-        [1, 1]
-    ], dtype=np.float32)
+    # All logic gates use same input combinations
+    X = np.array([[0, 0],
+                  [0, 1],
+                  [1, 0],
+                  [1, 1]], dtype=float)
     
-    # Define outputs for each gate
-    gates = {
-        'AND':  np.array([0, 0, 0, 1]),
-        'OR':   np.array([0, 1, 1, 1]),
-        'XOR':  np.array([0, 1, 1, 0]),
-        'NAND': np.array([1, 1, 1, 0]),
-        'NOR':  np.array([1, 0, 0, 0]),
-        'XNOR': np.array([1, 0, 0, 1])
-    }
-    
-    if gate not in gates:
-        raise ValueError(f"Unknown gate: {gate}. Choose from {list(gates.keys())}")
-    
-    y = gates[gate]
+    # Define outputs for each gate type
+    if gate_type.upper() == 'AND':
+        y = np.array([0, 0, 0, 1], dtype=float)
+    elif gate_type.upper() == 'OR':
+        y = np.array([0, 1, 1, 1], dtype=float)
+    elif gate_type.upper() == 'XOR':
+        y = np.array([0, 1, 1, 0], dtype=float)
+    elif gate_type.upper() == 'NAND':
+        y = np.array([1, 1, 1, 0], dtype=float)
+    elif gate_type.upper() == 'NOR':
+        y = np.array([1, 0, 0, 0], dtype=float)
+    else:
+        raise ValueError(f"Unknown gate type: {gate_type}")
     
     return X, y
 
 
-def visualize_logic_gate(gate: str = 'XOR', ax: Optional[plt.Axes] = None) -> plt.Axes:
+def visualize_decision_boundary(model: Any, 
+                               X: np.ndarray, 
+                               y: np.ndarray,
+                               title: str = "Decision Boundary",
+                               save_path: Optional[str] = None) -> None:
     """
-    Visualize a logic gate's input-output mapping.
+    Visualize the decision boundary of a trained model.
     
     Args:
-        gate: Type of logic gate
-        ax: Matplotlib axes (creates new if None)
-        
-    Returns:
-        Matplotlib axes with visualization
+        model: Trained model with predict method
+        X: Input data points
+        y: Target labels
+        title: Plot title
+        save_path: Optional path to save the figure
     """
-    X, y = generate_logic_gate_data(gate)
+    # Set up the plot
+    fig, ax = plt.subplots(figsize=(8, 6))
     
-    if ax is None:
-        fig, ax = plt.subplots(figsize=(6, 6))
+    # Create a mesh grid for the decision boundary
+    h = 0.01  # Step size in the mesh
+    x_min, x_max = -0.5, 1.5
+    y_min, y_max = -0.5, 1.5
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                         np.arange(y_min, y_max, h))
     
-    # Plot points
-    colors = ['red' if yi == 0 else 'blue' for yi in y]
-    ax.scatter(X[:, 0], X[:, 1], c=colors, s=200, edgecolors='black', linewidth=2)
+    # Predict on the mesh grid
+    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
     
-    # Add labels
-    for i, (x1, x2) in enumerate(X):
-        label = f"({int(x1)},{int(x2)})→{y[i]}"
-        ax.annotate(label, (x1, x2), xytext=(5, 5), textcoords='offset points')
+    # Plot the decision boundary
+    ax.contourf(xx, yy, Z, alpha=0.3, cmap='RdYlBu', levels=[0, 0.5, 1])
+    ax.contour(xx, yy, Z, levels=[0.5], colors='black', linewidths=2, linestyles='--')
     
-    ax.set_xlim(-0.5, 1.5)
-    ax.set_ylim(-0.5, 1.5)
-    ax.set_xlabel("Input 1", fontsize=12)
-    ax.set_ylabel("Input 2", fontsize=12)
-    ax.set_title(f"{gate} Gate", fontsize=14, fontweight='bold')
+    # Plot the data points
+    scatter = ax.scatter(X[:, 0], X[:, 1], c=y, s=200, 
+                        cmap='RdYlBu', edgecolors='black', linewidth=2)
+    
+    # Add labels for each point
+    for i, (x, y_val) in enumerate(zip(X, y)):
+        ax.annotate(f'({int(x[0])},{int(x[1])})→{int(y_val)}',
+                   xy=(x[0], x[1]), xytext=(5, 5),
+                   textcoords='offset points', fontsize=10)
+    
+    # Formatting
+    ax.set_xlim(x_min, x_max)
+    ax.set_ylim(y_min, y_max)
+    ax.set_xlabel('Input 1', fontsize=12)
+    ax.set_ylabel('Input 2', fontsize=12)
+    ax.set_title(title, fontsize=14, fontweight='bold')
     ax.grid(True, alpha=0.3)
     
-    # Add legend
-    ax.scatter([], [], c='red', s=100, label='Output = 0')
-    ax.scatter([], [], c='blue', s=100, label='Output = 1')
-    ax.legend(loc='upper right')
+    # Add colorbar
+    plt.colorbar(scatter, ax=ax, label='Output')
     
-    return ax
+    # Add model type annotation
+    model_type = type(model).__name__
+    ax.text(0.02, 0.98, f'Model: {model_type}',
+           transform=ax.transAxes, fontsize=10,
+           verticalalignment='top',
+           bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    
+    plt.tight_layout()
+    
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    
+    plt.show()
 
 
-def analyze_linear_separability() -> Dict[str, bool]:
+def plot_training_history(history: dict, 
+                         title: str = "Training History",
+                         save_path: Optional[str] = None) -> None:
     """
-    Analyze which logic gates are linearly separable.
+    Plot training history (loss and accuracy over epochs).
     
+    Args:
+        history: Dictionary with 'loss' and 'accuracy' lists
+        title: Plot title
+        save_path: Optional path to save the figure
+    """
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+    
+    epochs = range(1, len(history['loss']) + 1)
+    
+    # Plot loss
+    ax1.plot(epochs, history['loss'], 'b-', linewidth=2, label='Loss')
+    ax1.set_xlabel('Epoch', fontsize=12)
+    ax1.set_ylabel('Loss', fontsize=12)
+    ax1.set_title('Training Loss', fontsize=14, fontweight='bold')
+    ax1.grid(True, alpha=0.3)
+    ax1.legend()
+    
+    # Plot accuracy
+    ax2.plot(epochs, history['accuracy'], 'g-', linewidth=2, label='Accuracy')
+    ax2.set_xlabel('Epoch', fontsize=12)
+    ax2.set_ylabel('Accuracy', fontsize=12)
+    ax2.set_title('Training Accuracy', fontsize=14, fontweight='bold')
+    ax2.set_ylim([0, 1.05])
+    ax2.grid(True, alpha=0.3)
+    ax2.legend()
+    
+    # Add percentage labels on y-axis for accuracy
+    ax2.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f'{y:.0%}'))
+    
+    plt.suptitle(title, fontsize=16, fontweight='bold', y=1.02)
+    plt.tight_layout()
+    
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    
+    plt.show()
+
+
+def compare_models_on_gates(models: dict, gates: list = ['AND', 'OR', 'XOR']) -> dict:
+    """
+    Compare multiple models on different logic gates.
+    
+    Args:
+        models: Dictionary of model_name: model pairs
+        gates: List of gate types to test
+        
     Returns:
-        Dictionary mapping gate names to separability status
+        Dictionary of results
     """
     results = {}
     
-    # Linearly separable gates (can be solved by single-layer perceptron)
-    linearly_separable = ['AND', 'OR', 'NAND', 'NOR']
-    
-    # Non-linearly separable gates (require multi-layer networks)
-    non_linearly_separable = ['XOR', 'XNOR']
-    
-    all_gates = linearly_separable + non_linearly_separable
-    
-    for gate in all_gates:
-        results[gate] = gate in linearly_separable
+    for gate in gates:
+        X, y = generate_logic_gate_data(gate)
+        results[gate] = {}
+        
+        for model_name, model in models.items():
+            predictions = model.predict(X)
+            accuracy = np.mean(predictions == y)
+            results[gate][model_name] = accuracy
     
     return results
 
 
-def visualize_all_logic_gates():
+def plot_comparison_results(results: dict, save_path: Optional[str] = None) -> None:
     """
-    Create a comprehensive visualization of all logic gates.
-    """
-    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
-    fig.suptitle("Logic Gates: Linear Separability Challenge", fontsize=16, fontweight='bold')
-    
-    gates = ['AND', 'OR', 'NAND', 'NOR', 'XOR', 'XNOR']
-    separability = analyze_linear_separability()
-    
-    for ax, gate in zip(axes.flat, gates):
-        visualize_logic_gate(gate, ax)
-        
-        # Add separability indicator
-        if separability[gate]:
-            ax.set_facecolor('#e8f5e9')  # Light green for separable
-            status = "✓ Linearly Separable"
-            color = 'green'
-        else:
-            ax.set_facecolor('#ffebee')  # Light red for non-separable
-            status = "✗ NOT Linearly Separable"
-            color = 'red'
-        
-        ax.text(0.5, -0.3, status, transform=ax.transAxes,
-                ha='center', fontsize=11, color=color, fontweight='bold')
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Print analysis
-    print("=" * 60)
-    print("LOGIC GATE LINEAR SEPARABILITY ANALYSIS")
-    print("=" * 60)
-    
-    print("\n✓ LINEARLY SEPARABLE (Single-layer perceptron can solve):")
-    for gate, is_sep in separability.items():
-        if is_sep:
-            print(f"  - {gate}: Can draw a single line to separate outputs")
-    
-    print("\n✗ NON-LINEARLY SEPARABLE (Requires multi-layer network):")
-    for gate, is_sep in separability.items():
-        if not is_sep:
-            print(f"  - {gate}: Need curved or multiple lines to separate")
-    
-    print("\n" + "=" * 60)
-    print("KEY INSIGHT: XOR and XNOR require hidden layers because")
-    print("they need to combine multiple decision boundaries.")
-    print("=" * 60)
-
-
-def generate_extended_xor_data(n_samples: int = 100, noise: float = 0.1, 
-                               random_state: Optional[int] = None) -> Tuple[np.ndarray, np.ndarray]:
-    """
-    Generate noisy XOR data for more realistic testing.
+    Plot comparison results as a heatmap.
     
     Args:
-        n_samples: Number of samples to generate
-        noise: Standard deviation of Gaussian noise
-        random_state: Random seed for reproducibility
-        
-    Returns:
-        X: Input features with noise
-        y: XOR labels
+        results: Dictionary of gate -> model -> accuracy
+        save_path: Optional path to save the figure
     """
-    if random_state is not None:
-        np.random.seed(random_state)
+    # Convert results to matrix format
+    gates = list(results.keys())
+    models = list(results[gates[0]].keys())
     
-    # Generate random points in [0, 1] x [0, 1]
-    X = np.random.rand(n_samples, 2)
+    data = np.array([[results[gate][model] for model in models] for gate in gates])
     
-    # Add noise
-    X += np.random.randn(n_samples, 2) * noise
+    # Create heatmap
+    fig, ax = plt.subplots(figsize=(10, 6))
     
-    # Compute XOR: output is 1 if inputs are in different halves
-    y = ((X[:, 0] > 0.5) != (X[:, 1] > 0.5)).astype(int)
+    sns.heatmap(data, annot=True, fmt='.2%', cmap='RdYlGn',
+                xticklabels=models, yticklabels=gates,
+                vmin=0, vmax=1, cbar_kws={'label': 'Accuracy'},
+                linewidths=1, linecolor='gray')
     
-    return X, y
-
-
-if __name__ == "__main__":
-    # Demonstrate the visualizations
-    print("Generating logic gate visualizations...")
-    visualize_all_logic_gates()
+    ax.set_title('Model Performance on Logic Gates', fontsize=16, fontweight='bold', pad=20)
+    ax.set_xlabel('Model', fontsize=12)
+    ax.set_ylabel('Logic Gate', fontsize=12)
     
-    # Test data generation
-    print("\nTesting data generation:")
-    for gate in ['AND', 'OR', 'XOR']:
-        X, y = generate_logic_gate_data(gate)
-        print(f"\n{gate} Gate:")
-        print(f"Inputs:\n{X}")
-        print(f"Outputs: {y}")
+    plt.tight_layout()
+    
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    
+    plt.show()

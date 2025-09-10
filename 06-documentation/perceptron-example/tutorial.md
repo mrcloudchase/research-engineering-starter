@@ -1,315 +1,387 @@
-# Understanding Neural Networks: A Beginner's Guide Through the Perceptron Story
+# Tutorial: Building Your First Neural Network to Solve XOR
 
-## Welcome! 🧠
+A beginner-friendly guide to understanding neural network limitations and solutions through hands-on implementation.
 
-If you've ever wondered how artificial intelligence actually learns, you're in the right place. We're going to explore this through one of AI's most important historical moments: the discovery that simple neural networks can't solve certain problems, and how adding just one extra layer changes everything.
+## Introduction
 
-No advanced math required - just curiosity!
+Have you ever wondered why some problems are "hard" for computers? In this tutorial, we'll explore one of the most famous problems in AI history - the XOR problem - and build neural networks from scratch to solve it!
 
 ## What You'll Learn
 
-By the end of this tutorial, you'll understand:
-- How the simplest neural network (perceptron) works
-- Why it fails on certain problems (like XOR)
-- How adding hidden layers solves these problems
-- Why it took 25 years to figure out how to train multi-layer networks
-- What this means for modern AI
+- Why some problems are impossible for simple neural networks
+- How adding "hidden layers" makes networks more powerful
+- How to implement and train neural networks from scratch
+- How to test scientific hypotheses with code
 
-## Part 1: The Perceptron - AI's First Learning Machine
+## Prerequisites
 
-### What is a Perceptron?
+- Basic Python knowledge
+- High school math (we'll explain the rest!)
+- Curiosity about how AI works
 
-Imagine you're a bouncer at a club with a simple rule: "Let people in if they're either tall OR wearing fancy shoes, but not necessarily both."
-
-A perceptron is like an automated bouncer that learns these rules from examples:
-
-```python
-# Perceptron decision process (simplified)
-def perceptron_decision(height, fancy_shoes):
-    # Learned weights (importance of each factor)
-    weight_height = 0.6
-    weight_shoes = 0.7
-    bias = -0.5  # Overall strictness
-    
-    # Calculate weighted sum
-    score = (height * weight_height) + (fancy_shoes * weight_shoes) + bias
-    
-    # Make decision
-    if score > 0:
-        return "Let them in!"
-    else:
-        return "Sorry, not tonight."
-```
-
-### How Does It Learn?
-
-The perceptron learns by adjusting its weights when it makes mistakes:
-
-1. **See an example**: (tall=1, fancy_shoes=0) → should be let in
-2. **Make prediction**: Calculate score, decide yes/no
-3. **Check if wrong**: Compare to correct answer
-4. **Adjust if needed**: Increase weights for features that should have mattered more
-
-### Try It Yourself: AND Gate
-
-An AND gate outputs 1 only when both inputs are 1:
-
-```python
-# AND gate truth table
-inputs = [
-    [0, 0],  # Output: 0
-    [0, 1],  # Output: 0
-    [1, 0],  # Output: 0
-    [1, 1],  # Output: 1
-]
-```
-
-A perceptron can learn this easily! After a few examples, it finds weights like:
-- Weight 1: 0.5
-- Weight 2: 0.5
-- Bias: -0.7
-
-Check: (1 × 0.5) + (1 × 0.5) - 0.7 = 0.3 > 0 ✓ Output 1!
-
-## Part 2: The XOR Problem - When Simple Isn't Enough
+## Part 1: Understanding the Problem
 
 ### What is XOR?
 
-XOR (exclusive OR) means "one or the other, but not both":
-- Different inputs → Output 1
-- Same inputs → Output 0
-
-Real-world example: A light controlled by two switches. The light is ON when the switches are in different positions.
+XOR (exclusive OR) is a simple logic function:
+- Output 1 when inputs are DIFFERENT
+- Output 0 when inputs are the SAME
 
 ```python
-# XOR truth table
-[0, 0] → 0  # Both off: light off
-[0, 1] → 1  # Different: light on
-[1, 0] → 1  # Different: light on
-[1, 1] → 0  # Both on: light off
+# XOR Truth Table
+(0, 0) → 0  # Same inputs
+(0, 1) → 1  # Different inputs  
+(1, 0) → 1  # Different inputs
+(1, 1) → 0  # Same inputs
 ```
 
-### Why Can't a Perceptron Learn XOR?
+### Why is XOR Special?
 
-Here's the key insight: A perceptron can only draw a single straight line to separate classes.
-
-```
-AND Gate (Perceptron CAN solve):     XOR Gate (Perceptron CANNOT solve):
-    1 | · X                               1 | X · 
-    0 | · ·                               0 | · X
-      +-----                                +-----
-        0 1                                   0 1
-    
-    One line separates · from X          No single line can separate them!
-```
-
-### The Geometric Intuition
-
-Think of it this way:
-- **AND/OR**: "Is the point in the upper-right region?" (one decision)
-- **XOR**: "Is the point in the upper-left OR lower-right?" (two decisions)
-
-A single-layer perceptron can only make one decision. XOR needs two!
-
-## Part 3: The Multi-Layer Solution
-
-### Adding a Hidden Layer
-
-The breakthrough: Add an intermediate step (hidden layer) that transforms the problem:
+Try drawing a single straight line that separates the 1s from the 0s:
 
 ```
-Input Layer    Hidden Layer    Output Layer
-    (x₁)  ----→  (h₁)  ----→
-                    ×        →  (output)
-    (x₂)  ----→  (h₂)  ----→
+    Input 2
+    1 |  0    1
+      |
+    0 |  1    0
+      +--------
+      0    1   Input 1
 ```
 
-### How Hidden Layers Solve XOR
+You can't do it! This makes XOR "non-linearly separable" - a fancy way of saying "you need a curved boundary, not a straight line."
 
-The hidden layer creates new features:
-- Hidden unit 1 might detect: "Is x₁ = 1 AND x₂ = 0?"
-- Hidden unit 2 might detect: "Is x₁ = 0 AND x₂ = 1?"
+## Part 2: Building a Single-Layer Perceptron
 
-The output layer then combines these: "Is either hidden unit active?"
-
-### Code Example: XOR with Hidden Layer
+Let's build the simplest neural network - a single-layer perceptron:
 
 ```python
 import numpy as np
 
-def sigmoid(x):
-    """Smooth activation function (unlike perceptron's harsh step)"""
-    return 1 / (1 + np.exp(-x))
-
-class SimpleMLPForXOR:
-    def __init__(self):
-        # Random initial weights
-        self.weights_hidden = np.random.randn(2, 2)  # 2 inputs → 2 hidden
-        self.weights_output = np.random.randn(2, 1)  # 2 hidden → 1 output
+class SimplePerceptron:
+    def __init__(self, learning_rate=0.1):
+        # Initialize random weights and bias
+        self.weights = np.random.randn(2) * 0.1
+        self.bias = np.random.randn() * 0.1
+        self.learning_rate = learning_rate
     
-    def predict(self, x):
-        # Forward pass through network
-        hidden = sigmoid(np.dot(x, self.weights_hidden))
-        output = sigmoid(np.dot(hidden, self.weights_output))
-        return output
-
-# After training (weights learned through backpropagation):
-mlp = SimpleMLPForXOR()
-mlp.weights_hidden = np.array([[6.0, -6.0], [-6.0, 6.0]])
-mlp.weights_output = np.array([[9.0], [9.0]])
-
-# Test on XOR:
-print(mlp.predict([0, 0]))  # ≈ 0 ✓
-print(mlp.predict([0, 1]))  # ≈ 1 ✓
-print(mlp.predict([1, 0]))  # ≈ 1 ✓
-print(mlp.predict([1, 1]))  # ≈ 0 ✓
+    def predict(self, X):
+        # Calculate: output = step(w·x + b)
+        linear_output = np.dot(X, self.weights) + self.bias
+        return (linear_output > 0).astype(int)
+    
+    def train(self, X, y, epochs=100):
+        for epoch in range(epochs):
+            predictions = self.predict(X)
+            errors = y - predictions
+            
+            # Update weights when wrong
+            for i in range(len(X)):
+                self.weights += self.learning_rate * errors[i] * X[i]
+                self.bias += self.learning_rate * errors[i]
+            
+            # Check accuracy
+            accuracy = np.mean(predictions == y)
+            if epoch % 20 == 0:
+                print(f"Epoch {epoch}: Accuracy = {accuracy:.2%}")
 ```
 
-## Part 4: The 25-Year Mystery
-
-### The Timeline
-- **1958**: Perceptron invented
-- **1962**: Multi-layer networks proposed
-- **1969**: XOR limitation proven
-- **1987**: Backpropagation makes training practical
-
-### Why the Delay?
-
-#### Challenge 1: How to Adjust Hidden Weights?
-With a single layer, it's obvious which weights to change when wrong. With hidden layers, how do you know which hidden unit caused the error?
-
-#### Challenge 2: The Step Function Problem
-The original perceptron used a harsh step function (0 or 1). You can't calculate gradients with this - there's no smooth slope to follow!
-
-#### Challenge 3: Computational Limits
-1960s computers were millions of times slower. Training that takes seconds today would have taken months.
-
-### The Backpropagation Breakthrough
-
-Backpropagation solves the credit assignment problem by:
-1. Calculate the error at the output
-2. **Propagate** the error **backwards** through the network
-3. Adjust each weight based on its contribution to the error
-
-Key innovation: Use smooth activation functions (sigmoid) instead of harsh steps, enabling gradient calculation.
-
-## Part 5: Hands-On Experiments
-
-### Experiment 1: Verify Perceptron Limitations
+### Testing on XOR
 
 ```python
-from perceptron import Perceptron
-from data_utils import generate_logic_gate_data
+# Create XOR data
+X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+y = np.array([0, 1, 1, 0])  # XOR outputs
 
-# Test on different gates
-for gate in ['AND', 'OR', 'XOR']:
-    X, y = generate_logic_gate_data(gate)
-    model = Perceptron(n_features=2)
-    model.fit(X, y, epochs=100)
-    accuracy = model.score(X, y)
-    print(f"{gate}: {accuracy:.1%} accuracy")
+# Train perceptron
+perceptron = SimplePerceptron()
+perceptron.train(X, y, epochs=100)
 
-# Expected output:
-# AND: 100.0% accuracy ✓
-# OR:  100.0% accuracy ✓
-# XOR: 50.0% accuracy  ✗ (random guessing)
+# Test predictions
+print("\nFinal predictions:")
+for inputs, target in zip(X, y):
+    prediction = perceptron.predict(inputs.reshape(1, -1))[0]
+    print(f"{inputs} → {prediction} (target: {target})")
 ```
 
-### Experiment 2: Multi-Layer Success
+**Result**: The perceptron fails! It can't learn XOR, getting only 50% accuracy (random guessing).
+
+## Part 3: Building a Multi-Layer Perceptron
+
+Now let's add a hidden layer to create a more powerful network:
 
 ```python
-from mlp import MultiLayerPerceptron
-
-# Create network with hidden layer
-mlp = MultiLayerPerceptron(
-    input_size=2,
-    hidden_size=2,  # Just 2 hidden neurons!
-    output_size=1
-)
-
-# Train on XOR
-X, y = generate_logic_gate_data('XOR')
-mlp.train(X, y, epochs=1000, method='backprop')
-
-print(f"XOR accuracy: {mlp.score(X, y):.1%}")
-# Output: XOR accuracy: 100.0% ✓
+class MultiLayerPerceptron:
+    def __init__(self, hidden_size=2, learning_rate=0.5):
+        # Layer 1: input (2) → hidden (hidden_size)
+        self.W1 = np.random.randn(2, hidden_size) * 0.5
+        self.b1 = np.zeros((1, hidden_size))
+        
+        # Layer 2: hidden → output (1)
+        self.W2 = np.random.randn(hidden_size, 1) * 0.5
+        self.b2 = np.zeros((1, 1))
+        
+        self.learning_rate = learning_rate
+    
+    def sigmoid(self, x):
+        """Smooth activation function"""
+        return 1 / (1 + np.exp(-x))
+    
+    def sigmoid_derivative(self, x):
+        """Derivative for backpropagation"""
+        s = self.sigmoid(x)
+        return s * (1 - s)
+    
+    def forward(self, X):
+        """Pass input through network"""
+        # Hidden layer
+        self.z1 = np.dot(X, self.W1) + self.b1
+        self.a1 = self.sigmoid(self.z1)
+        
+        # Output layer
+        self.z2 = np.dot(self.a1, self.W2) + self.b2
+        self.a2 = self.sigmoid(self.z2)
+        
+        return self.a2
+    
+    def backward(self, X, y):
+        """Backpropagation - the key to training deep networks!"""
+        m = X.shape[0]
+        
+        # Output layer gradients
+        dz2 = self.a2 - y.reshape(-1, 1)
+        dW2 = np.dot(self.a1.T, dz2) / m
+        db2 = np.mean(dz2, axis=0, keepdims=True)
+        
+        # Hidden layer gradients
+        da1 = np.dot(dz2, self.W2.T)
+        dz1 = da1 * self.sigmoid_derivative(self.z1)
+        dW1 = np.dot(X.T, dz1) / m
+        db1 = np.mean(dz1, axis=0, keepdims=True)
+        
+        # Update weights
+        self.W1 -= self.learning_rate * dW1
+        self.b1 -= self.learning_rate * db1
+        self.W2 -= self.learning_rate * dW2
+        self.b2 -= self.learning_rate * db2
+    
+    def train(self, X, y, epochs=1000):
+        for epoch in range(epochs):
+            # Forward pass
+            output = self.forward(X)
+            
+            # Backward pass
+            self.backward(X, y)
+            
+            # Check progress
+            if epoch % 200 == 0:
+                predictions = (output > 0.5).astype(int).flatten()
+                accuracy = np.mean(predictions == y)
+                print(f"Epoch {epoch}: Accuracy = {accuracy:.2%}")
+    
+    def predict(self, X):
+        output = self.forward(X)
+        return (output > 0.5).astype(int).flatten()
 ```
 
-### Experiment 3: Why Backpropagation Matters
+### Testing the Multi-Layer Network
 
 ```python
-# Compare training methods
-methods = ['backprop', 'random']
-for method in methods:
-    mlp = MultiLayerPerceptron(2, 2, 1)
-    mlp.train(X, y, epochs=1000, method=method)
-    print(f"{method}: {mlp.score(X, y):.1%} accuracy")
+# Train multi-layer perceptron
+mlp = MultiLayerPerceptron(hidden_size=2)
+mlp.train(X, y, epochs=1000)
 
-# Expected output:
-# backprop: 100.0% accuracy ✓
-# random:   50.0% accuracy  ✗
+# Test predictions
+print("\nFinal predictions:")
+for inputs, target in zip(X, y):
+    prediction = mlp.predict(inputs.reshape(1, -1))[0]
+    print(f"{inputs} → {prediction} (target: {target})")
 ```
 
-## Part 6: Modern Connections
+**Result**: Success! The multi-layer perceptron learns XOR with 100% accuracy!
 
-### What This Means Today
+## Part 4: Visualizing the Solution
 
-1. **Deep Learning**: Modern networks have hundreds of layers, but the principle is the same - each layer transforms the representation.
+Let's see how the networks create decision boundaries:
 
-2. **GPT & Transformers**: These are essentially very sophisticated multi-layer perceptrons with attention mechanisms.
+```python
+import matplotlib.pyplot as plt
 
-3. **The Bitter Lesson**: Simple methods with more computation often beat complex methods with less computation.
+def plot_decision_boundary(model, X, y, title):
+    # Create mesh grid
+    h = 0.01
+    x_min, x_max = -0.5, 1.5
+    y_min, y_max = -0.5, 1.5
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                         np.arange(y_min, y_max, h))
+    
+    # Predict on mesh
+    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    
+    # Plot
+    plt.figure(figsize=(8, 6))
+    plt.contourf(xx, yy, Z, alpha=0.3, cmap='RdYlBu')
+    plt.scatter(X[:, 0], X[:, 1], c=y, s=200, 
+                cmap='RdYlBu', edgecolors='black', linewidth=2)
+    
+    # Add labels
+    for i, (x, y_val) in enumerate(zip(X, y)):
+        plt.annotate(f'({int(x[0])},{int(x[1])})→{int(y_val)}',
+                    xy=(x[0], x[1]), xytext=(5, 5),
+                    textcoords='offset points')
+    
+    plt.title(title)
+    plt.xlabel('Input 1')
+    plt.ylabel('Input 2')
+    plt.show()
 
-### Key Takeaways
+# Visualize both models
+plot_decision_boundary(perceptron, X, y, 'Single-Layer: Linear Boundary (Fails)')
+plot_decision_boundary(mlp, X, y, 'Multi-Layer: Non-Linear Boundary (Succeeds)')
+```
 
-1. **Linear boundaries limit single-layer networks** - Some problems need curved decision boundaries
+## Part 5: Understanding What Happened
 
-2. **Hidden layers transform representations** - They create features that make hard problems easier
+### Why Single-Layer Failed
 
-3. **Gradient-based learning is crucial** - Backpropagation made deep learning possible
+Single-layer perceptrons can only create straight line boundaries:
+- They compute: `output = step(w₁x₁ + w₂x₂ + b)`
+- This is the equation of a line!
+- XOR needs a curved boundary
 
-4. **Theory ≠ Practice** - Multi-layer networks were proposed in 1962 but weren't practical until 1987
+### Why Multi-Layer Succeeded
 
-5. **Simple examples reveal deep principles** - Understanding XOR helps understand all of deep learning
+Hidden layers enable complex boundaries:
+1. **First layer** creates multiple linear boundaries
+2. **Second layer** combines them into curves
+3. **Non-linear activation** (sigmoid) is crucial - without it, multiple linear layers still make lines!
 
-## Your Turn: Exercises
+### The Historical Context
 
-### Exercise 1: Predict Perceptron Success
-Without coding, predict whether a perceptron can learn:
-- NAND gate (NOT AND)
-- Majority vote (output 1 if 2+ of 3 inputs are 1)
-- Parity (output 1 if odd number of inputs are 1)
+- **1958**: Perceptron invented - AI researchers excited!
+- **1969**: Minsky & Papert prove XOR limitation - AI winter begins
+- **1986**: Backpropagation solved training problem - AI renaissance!
+- **Today**: Deep learning uses same principles with many more layers
 
-### Exercise 2: Minimal Architecture
-What's the minimum number of hidden neurons needed for:
-- XOR (we showed 2 works)
-- 3-input XOR
-- General n-input XOR?
+## Part 6: Experiments You Can Try
 
-### Exercise 3: Real-World XOR
-Think of three real-world problems that have XOR-like properties (need multiple decisions).
+### Experiment 1: Minimum Network Size
+```python
+# Test different hidden layer sizes
+for hidden_size in [1, 2, 3, 4, 8]:
+    mlp = MultiLayerPerceptron(hidden_size=hidden_size)
+    mlp.train(X, y, epochs=2000)
+    predictions = mlp.predict(X)
+    accuracy = np.mean(predictions == y)
+    print(f"Hidden size {hidden_size}: Accuracy = {accuracy:.2%}")
+```
 
-## Going Further
+**Finding**: You need at least 2 hidden units for XOR!
 
-### Next Steps
-1. Implement your own perceptron from scratch
-2. Visualize decision boundaries
-3. Explore deeper networks
-4. Study modern activation functions (ReLU)
+### Experiment 2: Different Logic Gates
+```python
+# Test on simpler gates
+gates = {
+    'AND': [0, 0, 0, 1],
+    'OR': [0, 1, 1, 1],
+    'XOR': [0, 1, 1, 0]
+}
 
-### Resources
-- [3Blue1Brown Neural Network Series](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
-- [Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com/)
-- [The Perceptron Paper (1958)](https://psycnet.apa.org/record/1959-09865-001)
+for name, outputs in gates.items():
+    y_gate = np.array(outputs)
+    
+    # Test single-layer
+    slp = SimplePerceptron()
+    slp.train(X, y_gate, epochs=100)
+    slp_acc = np.mean(slp.predict(X) == y_gate)
+    
+    # Test multi-layer
+    mlp = MultiLayerPerceptron()
+    mlp.train(X, y_gate, epochs=1000)
+    mlp_acc = np.mean(mlp.predict(X) == y_gate)
+    
+    print(f"{name}: Single-Layer = {slp_acc:.2%}, Multi-Layer = {mlp_acc:.2%}")
+```
+
+**Finding**: Single-layer works for AND/OR but not XOR!
+
+### Experiment 3: Learning Dynamics
+```python
+# Track learning progress
+def train_with_history(model, X, y, epochs=1000):
+    history = []
+    
+    for epoch in range(epochs):
+        if hasattr(model, 'forward'):
+            # Multi-layer
+            output = model.forward(X)
+            model.backward(X, y)
+            predictions = (output > 0.5).astype(int).flatten()
+        else:
+            # Single-layer
+            predictions = model.predict(X)
+            # ... training step ...
+        
+        accuracy = np.mean(predictions == y)
+        history.append(accuracy)
+    
+    return history
+
+# Compare learning curves
+slp = SimplePerceptron()
+mlp = MultiLayerPerceptron()
+
+slp_history = train_with_history(slp, X, y)
+mlp_history = train_with_history(mlp, X, y)
+
+plt.plot(slp_history, label='Single-Layer')
+plt.plot(mlp_history, label='Multi-Layer')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.title('Learning Curves on XOR')
+plt.legend()
+plt.show()
+```
+
+## Key Takeaways
+
+1. **Not all problems are equal**: Some require more complex models
+2. **Architecture matters**: Hidden layers enable non-linear decision boundaries
+3. **Activation functions are crucial**: Non-linearity is required for complex patterns
+4. **Historical lessons**: Understanding limitations drives innovation
+
+## Next Steps
+
+Now that you understand the XOR problem:
+
+1. **Try 3-input XOR** (parity problem) - Do you need more hidden units?
+2. **Implement different activations** - Try ReLU instead of sigmoid
+3. **Visualize hidden layer** - What features does it learn?
+4. **Scale up** - Can you solve real image classification?
+
+## Complete Code
+
+Find all code from this tutorial in:
+- Implementation: `03-implementation/perceptron-example/`
+- Experiments: `04-experiments/perceptron-example/`
+- Analysis: `05-analysis/perceptron-example/`
+
+## Resources for Further Learning
+
+- **Visual Introduction to Neural Networks**: [3Blue1Brown Series](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
+- **Deep Learning Book**: [Goodfellow, Bengio & Courville](https://www.deeplearningbook.org/)
+- **Neural Networks Playground**: [TensorFlow Playground](https://playground.tensorflow.org/)
 
 ## Conclusion
 
-You've just understood one of the most important lessons in AI history! The perceptron's limitation isn't a bug - it's a feature that taught us about representation, learning, and the power of depth in neural networks.
+Congratulations! You've just:
+- Discovered a fundamental limitation of simple neural networks
+- Built a solution using hidden layers
+- Understood why this took 25+ years historically
+- Gained insights applicable to modern deep learning
 
-Remember: Every expert was once a beginner. The fact that you've read this far means you're already on your way to understanding AI at a deep level.
-
-Happy learning! 🚀
+The XOR problem might seem simple, but it teaches profound lessons about neural network capabilities and limitations. Every modern AI system, from ChatGPT to computer vision models, builds on these same principles you've just mastered!
 
 ---
 
-**Questions?** Join our [Discord community](https://discord.gg/7gzZMAPuGr) where learners help each other understand these concepts.
+*This tutorial is part of the Average Joes Lab Research Engineering Learning Path. Start your own research journey at [averagejoeslab.com](https://averagejoeslab.com/docs/research-engineering/getting-started)*

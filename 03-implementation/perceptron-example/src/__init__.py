@@ -1,19 +1,20 @@
 """
 Perceptron Research Implementation
 
-Recreating Rosenblatt's 1958 perceptron and exploring multi-layer solutions to the XOR problem.
+This module implements both single-layer and multi-layer perceptrons
+to investigate the XOR problem and test our research hypotheses.
 """
 
-from .perceptron import Perceptron
-from .mlp import MultiLayerPerceptron
-from .activation import step_function, sigmoid, sigmoid_derivative
-from .data_utils import generate_logic_gate_data
+from .single_layer_perceptron import SingleLayerPerceptron
+from .multi_layer_perceptron import MultiLayerPerceptron
+from .data_utils import generate_logic_gate_data, visualize_decision_boundary
+from .evaluation import evaluate_model, run_experiment
 
 __all__ = [
-    'Perceptron',
+    'SingleLayerPerceptron',
     'MultiLayerPerceptron',
-    'step_function',
-    'sigmoid',
-    'sigmoid_derivative',
-    'generate_logic_gate_data'
+    'generate_logic_gate_data',
+    'visualize_decision_boundary',
+    'evaluate_model',
+    'run_experiment'
 ]
