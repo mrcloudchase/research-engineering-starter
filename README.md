@@ -10,6 +10,7 @@ This repository contains a **fully implemented research project** investigating 
 
 1. **Fork this repository** to your GitHub account
 2. **Clone locally**: `git clone https://github.com/YOUR_USERNAME/research-engineering-starter.git`
+   (Fork from: https://github.com/averagejoeslab/research-engineering-starter)
 3. **Read the learning path**: [Research Engineering Guide](https://averagejoeslab.com/docs/research-engineering/getting-started)
 4. **Study the perceptron example** or choose your own paper from `paper-recommendations.md`
 5. **Follow the 10-step process** using this repository structure
