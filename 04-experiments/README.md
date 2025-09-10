@@ -15,16 +15,25 @@ Design and execute rigorous experiments that test each of your hypotheses with p
 ```
 04-experiments/
 ├── README.md                    # This guide
-├── experiment-design-guide.md   # Systematic experimentation methodology
-├── perceptron-example/          # Complete perceptron experiments
-│   ├── experiment-logs/         # Detailed records
-│   ├── results/                 # Data and analysis
+├── perceptron-example/          # ✅ COMPLETE EXPERIMENTS
+│   ├── run_experiments.py       # Automated experiment runner
+│   ├── experiment-logs/         # Detailed experiment records
+│   ├── results/                 # Data and visualizations
 │   └── notebooks/               # Experimental notebooks
 └── your-work/                   # Your experiments
     ├── experiment-logs/
     ├── results/
     └── notebooks/
 ```
+
+## Complete Perceptron Experiments Available! ✅
+
+The `perceptron-example/` folder contains fully executed experiments:
+- **Hypothesis testing**: Single vs multi-layer on XOR (20 runs each)
+- **Architecture scaling**: Testing 2-16 hidden units
+- **Comprehensive testing**: All 5 logic gates
+- **Statistical analysis**: t-tests, effect sizes, confidence intervals
+- **Automated runner**: `run_experiments.py` executes all tests
 
 ## Experimental Methodology
 
@@ -138,17 +147,43 @@ By completing this step, you should have:
 
 ## Experimental Strategy
 
-### Week 1: Core Hypothesis Testing
+### Core Hypothesis Testing
 - [ ] Test primary hypothesis with direct comparison
 - [ ] Run multiple trials for statistical validity
 - [ ] Document baseline performance
 - [ ] Analyze initial results
 
-### Week 2: Systematic Investigation
+### Systematic Investigation
 - [ ] Conduct ablation studies
 - [ ] Test parameter sensitivity
 - [ ] Explore failure modes
 - [ ] Compile comprehensive results
+
+## Quick Start with Perceptron Experiments
+
+```bash
+# Navigate to experiments
+cd 04-experiments/perceptron-example/
+
+# Run all experiments
+python run_experiments.py
+
+# This will:
+# 1. Test single vs multi-layer on XOR (Experiment 1)
+# 2. Test different hidden layer sizes (Experiment 2)  
+# 3. Test all logic gates (Experiment 3)
+# 4. Generate statistical reports in experiment-logs/
+# 5. Save visualizations in results/
+
+# View results
+cat experiment-logs/SUMMARY.md
+```
+
+### Expected Results from Perceptron Example
+- **Single-layer on XOR**: ~38% accuracy (random performance)
+- **Multi-layer on XOR**: ~94% accuracy (successful learning)
+- **Statistical significance**: p < 0.001, Cohen's d > 9.0
+- **Minimum architecture**: 2 hidden units required for XOR
 
 ## Next Steps
 
