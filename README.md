@@ -112,7 +112,7 @@ The included perceptron example demonstrates:
 
 - **[Discord Server](https://discord.gg/7gzZMAPuGr)** - Get help and collaborate
 - **[Learning Path](https://averagejoeslab.com/docs/research-engineering/getting-started)** - Complete methodology guide
-- **[GitHub Organization](https://github.com/mrcloudchase/averagejoeslab)** - Open research projects
+- **[GitHub Organization](https://github.com/averagejoeslab)** - Open research projects
 
 ## 🌟 What You'll Build
 

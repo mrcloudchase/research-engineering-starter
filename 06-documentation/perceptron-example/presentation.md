@@ -223,7 +223,7 @@ Input 2 ──┴─[Units]──┘
 
 **Full Code Available:**
 ```
-github.com/mrcloudchase/research-engineering-starter
+github.com/averagejoeslab/research-engineering-starter
 ├── 03-implementation/   # From-scratch implementation
 ├── 04-experiments/      # All experiments
 ├── 05-analysis/         # Statistical analysis

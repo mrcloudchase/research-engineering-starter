@@ -51,7 +51,7 @@ Shared tools, templates, and references to support your research engineering jou
 - **#research-updates** - Share progress and get feedback
 
 ### GitHub Resources
-- **[Average Joes Lab](https://github.com/mrcloudchase/averagejoeslab)** - Open research projects
+- **[Average Joes Lab](https://github.com/averagejoeslab)** - Open research projects
 - **[Research Papers](https://averagejoeslab.com/internal-papers)** - Community publications
 
 ## 📖 Templates and Examples

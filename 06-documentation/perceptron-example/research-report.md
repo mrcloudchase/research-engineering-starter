@@ -2,7 +2,7 @@
 
 **Author**: Research Engineer  
 **Date**: 2025  
-**Repository**: [research-engineering-starter](https://github.com/mrcloudchase/research-engineering-starter)
+**Repository**: [research-engineering-starter](https://github.com/averagejoeslab/research-engineering-starter)
 
 ---
 
@@ -222,7 +222,7 @@ Based on our findings, promising next steps include:
 ## 8. Reproducibility Statement
 
 All code, data, and analysis scripts are available at:
-- GitHub: [research-engineering-starter](https://github.com/mrcloudchase/research-engineering-starter)
+- GitHub: [research-engineering-starter](https://github.com/averagejoeslab/research-engineering-starter)
 - Implementation: `03-implementation/perceptron-example/`
 - Experiments: `04-experiments/perceptron-example/`
 - Analysis: `05-analysis/perceptron-example/`
